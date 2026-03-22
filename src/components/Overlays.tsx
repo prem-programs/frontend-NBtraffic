@@ -57,7 +57,15 @@ export function SearchBar() {
           <div className="absolute top-full mt-2 w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden">
             <ul className="py-2">
               {filtered.map(item => (
-                <li key={item} className="px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center space-x-2">
+                <li 
+                  key={item} 
+                  onMouseDown={(e) => {
+                    e.preventDefault(); // Prevents input from losing focus before click registers
+                    setSearchTerm(item);
+                    setIsFocused(false);
+                  }}
+                  className="px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center space-x-2"
+                >
                    <Search className="w-4 h-4 text-gray-400" /> <span>{item}</span>
                 </li>
               ))}
