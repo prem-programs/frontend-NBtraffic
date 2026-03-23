@@ -7,16 +7,9 @@ import PeakHoursView from '@/components/PeakHoursView';
 import MostBusiestView from '@/components/MostBusiestView';
 import HardwareVulnerabilityView from '@/components/HardwareVulnerabilityView';
 import { X } from 'lucide-react';
+import type { IntersectionData } from '@/lib/intersections';
 
-export interface IntersectionData {
-  id: number;
-  nodeId: string;
-  name: string;
-  lat: number;
-  lng: number;
-  status: string;
-  p: number;
-}
+export type { IntersectionData } from '@/lib/intersections';
 
 export const vulnerabilitiesData = [
   {

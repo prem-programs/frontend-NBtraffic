@@ -86,7 +86,7 @@ function TelemetryMarkers({ onSelectIntersection, isDark }: { onSelectIntersecti
             onmouseover="this.style.background='#1d4ed8'"
             onmouseout="this.style.background='#2563eb'"
           >
-            View Live Dashboard
+            View Command Center
           </button>
         </div>
       `;
@@ -105,7 +105,7 @@ function TelemetryMarkers({ onSelectIntersection, isDark }: { onSelectIntersecti
         if (btn) {
           btn.onclick = () => {
             marker.closePopup();
-            onSelectIntersection(item);
+            window.location.href = `/intersection/${item.id}`;
           };
         }
       });
@@ -146,11 +146,22 @@ function CustomZoomControl() {
 
 function MapResizer({ selectedIntersection }: { selectedIntersection: IntersectionData | null }) {
   const map = useMap();
+  
   useEffect(() => {
-    const timeout = setTimeout(() => map.invalidateSize(), 350);
+    // Staggered invalidations for split-screen flex layout settling
+    const timeouts = [100, 350, 750, 1500].map((t) =>
+      setTimeout(() => map.invalidateSize(), t)
+    );
     map.invalidateSize();
-    return () => clearTimeout(timeout);
+    return () => timeouts.forEach(clearTimeout);
   }, [map, selectedIntersection]);
+
+  useEffect(() => {
+    const handleResize = () => map.invalidateSize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [map]);
+  
   return null;
 }
 
