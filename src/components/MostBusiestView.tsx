@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { BarChart2, ArrowUpRight, ArrowDownRight, Car, Timer, Flame } from "lucide-react";
+import { ProfileAlerts } from "./Overlays";
 
 const busiestIntersections = [
   { rank: 1, name: "ITO Junction", avgVehicles: 9800, peakVehicles: 14200, peakTime: "6:15 PM", avgWait: "14 min", trend: "up", change: "+8%", status: "Red" },
@@ -23,12 +24,13 @@ const statusDot: Record<string, string> = {
   Green: "bg-gray-400 shadow-[0_0_8px_rgba(156,163,175,0.8)] dark:bg-green-500 dark:shadow-[0_0_8px_rgba(34,197,94,0.8)]",
 };
 
-export default function MostBusiestView() {
-  const [sortBy, setSortBy] = useState<"avg" | "peak">("avg");
-  const sorted = [...busiestIntersections].sort((a, b) => sortBy === "avg" ? b.avgVehicles - a.avgVehicles : b.peakVehicles - a.peakVehicles);
+export default function MostBusiestView({ setActiveTab }: { setActiveTab?: (tab: string) => void }) {
+  const sorted = [...busiestIntersections].sort((a, b) => b.avgVehicles - a.avgVehicles);
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-gray-50 dark:bg-slate-950 p-8 transition-colors duration-300">
+    <div className="w-full h-full overflow-y-auto bg-gray-50 dark:bg-slate-950 p-8 transition-colors duration-300 relative">
+      {/* Profile & Notification Buttons */}
+      <ProfileAlerts setActiveTab={setActiveTab} />
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -41,10 +43,7 @@ export default function MostBusiestView() {
               <p className="text-sm text-gray-500 dark:text-gray-400">Ranked by traffic volume across Delhi NCR</p>
             </div>
           </div>
-          <div className="flex bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700 overflow-hidden transition-colors">
-            <button onClick={() => setSortBy("avg")} className={`px-4 py-2 text-sm font-medium transition-colors ${sortBy === "avg" ? "bg-blue-500 text-white" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800"}`}>Avg Volume</button>
-            <button onClick={() => setSortBy("peak")} className={`px-4 py-2 text-sm font-medium transition-colors ${sortBy === "peak" ? "bg-blue-500 text-white" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800"}`}>Peak Volume</button>
-          </div>
+
         </div>
 
         {/* Top 3 Cards */}

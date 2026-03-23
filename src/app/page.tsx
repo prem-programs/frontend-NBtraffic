@@ -79,11 +79,11 @@ export default function Home() {
   const renderContent = () => {
     switch (activeTab) {
       case "Peak hours":
-        return <PeakHoursView />;
+        return <PeakHoursView setActiveTab={handleTabChange} />;
       case "Most busiest":
-        return <MostBusiestView />;
+        return <MostBusiestView setActiveTab={handleTabChange} />;
       case "Hardware vulnerability":
-        return <HardwareVulnerabilityView />;
+        return <HardwareVulnerabilityView setActiveTab={handleTabChange} />;
       case "Delhi Map":
       default:
         return (

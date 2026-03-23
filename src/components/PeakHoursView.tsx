@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Clock, Search, ArrowUpRight, ArrowDownRight, Wrench, Timer, Activity } from "lucide-react";
+import { ProfileAlerts } from "./Overlays";
 import {
   AreaChart, Area, BarChart, Bar,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
@@ -157,7 +158,7 @@ function CustomTooltip({ active, payload, label, isDark }: any) {
   );
 }
 
-export default function PeakHoursView() {
+export default function PeakHoursView({ setActiveTab }: { setActiveTab?: (tab: string) => void }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isDark, setIsDark] = useState(false);
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -223,7 +224,10 @@ export default function PeakHoursView() {
   };
 
   return (
-    <div className="w-full h-full flex overflow-hidden bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="w-full h-full flex overflow-hidden bg-gray-50 dark:bg-slate-950 transition-colors duration-300 relative">
+      {/* Profile & Notification Buttons */}
+      <ProfileAlerts setActiveTab={setActiveTab} className="absolute top-2 right-6" />
+
       {/* ── Main Column (75%) ── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* ── City-Wide Aggregate (Fixed Top) ── */}
@@ -340,7 +344,7 @@ export default function PeakHoursView() {
       {/* ── Right Sidebar (25%, Sticky) ── */}
       <div className="w-[280px] flex-shrink-0 h-full border-l border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 flex flex-col transition-colors">
         <div className="p-4 border-b border-gray-200 dark:border-slate-800">
-          <p className="text-[10px] text-gray-500 dark:text-slate-500 uppercase tracking-widest font-semibold mb-3">Quick Find</p>
+          <p className="text-[11px] text-gray-500 dark:text-slate-500 uppercase tracking-widest font-semibold mb-3 mt-10">Quick Find</p>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
             <input

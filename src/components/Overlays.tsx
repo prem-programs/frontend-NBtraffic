@@ -79,7 +79,7 @@ export function SearchBar({ onSelect }: { onSelect?: (name: string) => void }) {
   );
 }
 
-export function ProfileAlerts({ setActiveTab }: { setActiveTab?: (tab: string) => void }) {
+export function ProfileAlerts({ setActiveTab, className = "absolute top-6 right-6" }: { setActiveTab?: (tab: string) => void; className?: string }) {
   const [openMenu, setOpenMenu] = useState<"notifications" | "profile" | null>(null);
 
   const toggleMenu = (menu: "notifications" | "profile") => {
@@ -103,7 +103,7 @@ export function ProfileAlerts({ setActiveTab }: { setActiveTab?: (tab: string) =
   };
 
   return (
-    <div className="absolute top-6 right-6 z-[1000] flex space-x-3">
+    <div className={`${className} z-[1000] flex space-x-3`}>
       {/* Notifications */}
       <div className="relative">
         <button 
