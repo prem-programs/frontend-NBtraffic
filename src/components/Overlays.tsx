@@ -28,7 +28,7 @@ const mockIntersections = [
   'Greater Kailash'
 ];
 
-export function SearchBar() {
+export function SearchBar({ onSelect }: { onSelect?: (name: string) => void }) {
   const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -37,6 +37,12 @@ export function SearchBar() {
     .replace(/chawk/g, 'chowk');
 
   const filtered = mockIntersections.filter(i => i.toLowerCase().includes(normalizedSearchTerm));
+
+  const handleSelect = (name: string) => {
+    setSearchTerm("");
+    setIsFocused(false);
+    if (onSelect) onSelect(name);
+  };
 
   return (
     <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[1000] w-[400px]">
@@ -59,11 +65,7 @@ export function SearchBar() {
               {filtered.map(item => (
                 <li 
                   key={item} 
-                  onMouseDown={(e) => {
-                    e.preventDefault(); // Prevents input from losing focus before click registers
-                    setSearchTerm(item);
-                    setIsFocused(false);
-                  }}
+                  onMouseDown={() => handleSelect(item)}
                   className="px-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700/50 cursor-pointer text-gray-700 dark:text-gray-300 flex items-center space-x-2"
                 >
                    <Search className="w-4 h-4 text-gray-400" /> <span>{item}</span>
@@ -121,7 +123,7 @@ export function ProfileAlerts({ setActiveTab }: { setActiveTab?: (tab: string) =
               <span className="bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-full">{vulnerabilitiesData.length} New</span>
             </div>
             <div className="overflow-y-auto w-full">
-              {vulnerabilitiesData.map((notif) => (
+              {vulnerabilitiesData.map((notif: { id: string, status: string, type: string, last_ping: string, issue: string, location: string }) => (
                 <div 
                   key={notif.id} 
                   onClick={() => handleNotificationClick(notif.id)}
