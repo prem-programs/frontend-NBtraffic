@@ -1,8 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NB Traffic — Frontend
 
-## Getting Started
+A clean, responsive Next.js frontend built with TypeScript for visualizing traffic data. I created this for a competition — it uses Leaflet maps and charts to display traffic information and is designed for easy deployment (Vercel, Netlify, or static hosting).
 
-First, run the development server:
+> Note: This README improves the default scaffold with usage instructions and an overview. If your app needs a backend or external API, provide the API URL as an environment variable (examples below).
+
+## Features
+
+- Interactive map views using Leaflet and react-leaflet
+- Charts and visualizations powered by Recharts
+- Lightweight UI components with Lucide icons
+- Tailwind CSS for styling (via PostCSS)
+- Built with Next.js (App Router) and TypeScript
+
+## Tech stack
+
+- Next.js
+- React + TypeScript
+- Leaflet + react-leaflet
+- Recharts
+- Tailwind CSS
+
+## Getting started
+
+Prerequisites
+
+- Node.js (v18+ recommended)
+- npm, yarn, pnpm, or bun
+
+Install dependencies
+
+```bash
+npm install
+# or
+# yarn
+# pnpm install
+# bun install
+```
+
+Run the development server
 
 ```bash
 npm run dev
@@ -14,23 +49,61 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If your frontend fetches data from an API, you can set an environment variable in a .env.local file at the project root:
 
-## Deploy on Vercel
+```env
+# Example — replace with your actual API endpoint
+NEXT_PUBLIC_API_URL=https://api.example.com
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Next.js will expose variables prefixed with NEXT_PUBLIC_ to the browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+This app is ready to deploy on Vercel with zero-configuration for Next.js projects. You can also deploy to other platforms that support Node.js.
+
+- Vercel: Connect the GitHub repo and deploy (default branch is used).
+- Static export: If the app is fully static, you can export and host on any static host.
+
+## Customization
+
+- To change map behavior or data sources, update the map component under `src/`.
+- Charts are implemented with Recharts; adjust datasets and chart props where needed.
+
+## Troubleshooting
+
+- Map markers or tiles not showing: ensure leaflet CSS is imported (Leaflet requires the stylesheet) and your tile provider allows access.
+- Type errors: make sure TypeScript version matches devDependencies and run `npm run build` to surface type issues.
+
+## Contributing
+
+This repo is a personal competition project. If you'd like to contribute:
+
+1. Fork the repository
+2. Create a branch for your feature: `git checkout -b feat/your-feature`
+3. Open a pull request describing your changes
+
+## License
+
+If you want this project to be open source, add a LICENSE file (MIT is a common choice). If not, indicate "All rights reserved".
+
+## Contact
+
+Made by @prem-programs for a competition. If you want feedback, open an issue or reach out on GitHub.
